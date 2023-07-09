@@ -1,6 +1,7 @@
 package com.example.applying.restrictions.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +23,10 @@ public class TestController {
     @GetMapping("/a/b/c")
     public String getEnpointC() {
         return "Works!";
+    }
+
+    @GetMapping("/email/{email}")
+    public String video(@PathVariable String email) {
+        return "Allowed for email " + email;
     }
 }

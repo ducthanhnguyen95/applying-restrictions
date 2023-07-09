@@ -30,6 +30,7 @@ public class ProjectConfig {
         manager.createUser(user2);
         return manager;
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
@@ -40,6 +41,8 @@ public class ProjectConfig {
 
         http.httpBasic(Customizer.withDefaults());
 
+
+
         http.authorizeHttpRequests(
                 c -> c.requestMatchers(HttpMethod.GET, "/a")
                         .authenticated()
@@ -49,12 +52,12 @@ public class ProjectConfig {
                         .authenticated()
                         .requestMatchers("/product/{code:^[0-9]*$}")
                         .permitAll()
-                        .anyRequest()
-                        .denyAll()
+                        .requestMatchers("/email/{email:.*(?:.+@.+\\.com)}" ).permitAll()
+                        .anyRequest().denyAll());
 
-        );
         http.csrf(c -> c.disable());
         return http.build();
+
 
     }
 }
